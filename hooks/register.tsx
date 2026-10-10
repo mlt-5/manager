@@ -6,7 +6,7 @@ import type { ContextFill, Phase } from '../types'
 const HANDOFF_SKILL = 'mattpocock-skills:handoff'
 
 const COMMIT_PROMPT =
-  'I pressed the "Commit & push" button: commit all current changes in this repository (staged, unstaged and untracked) with a clear commit message describing them, then push the current branch to its remote. If this is not a git repository, or there is nothing to commit, or the branch has no upstream, say so instead of guessing.'
+  'I pressed the "Commit & push" button: commit all current changes in this repository with a clear commit message describing them, then push the current branch to its remote. If this is not a git repository, or there is nothing to commit, or the branch has no upstream, say so instead of guessing.'
 
 const phase = atom({ plugin: 'manager', key: 'phase' } as const, 'idle' as Phase)
 const contextFill = atom({ plugin: 'manager', key: 'contextFill' } as const, null as ContextFill | null)
