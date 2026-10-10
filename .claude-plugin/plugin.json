@@ -1,0 +1,1 @@
+{ "name": "manager", "version": "0.1.0", "description": "Buttons above the prompt: compact the conversation, commit and push, or write a handoff, clear, and resume from it.", "types": "./types/index.d.ts" }

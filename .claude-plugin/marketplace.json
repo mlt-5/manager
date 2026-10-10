@@ -1,0 +1,5 @@
+{
+  "name": "manager",
+  "owner": { "name": "mlt-5" },
+  "plugins": [{ "name": "manager", "source": "./" }]
+}
