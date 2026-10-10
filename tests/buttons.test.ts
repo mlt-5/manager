@@ -1,4 +1,5 @@
 import { expect, test } from 'claude-code/testing'
+import type { On } from 'claude-code'
 
 const props = (isWorking: boolean) => ({
   hasSurvey: false,
@@ -25,12 +26,18 @@ test('Compact runs /compact', async ($, on) => {
   }
 })
 
-test('Clear runs /clear', async ($, on) => {
+const answerClear = (on: On, answer: string) =>
+  on('tool.call', { tool: 'AskUserQuestion' }, ($, e) => ({
+    result: { questions: e.questions, answers: Object.fromEntries(e.questions.map(q => [q.question, answer])) },
+  }))
+
+test('Clear asks first and runs /clear on Yes', async ($, on) => {
   const ran: string[] = []
   on('command.run', ($, e) => {
     ran.push(e.command)
     return {}
   })
+  answerClear(on, 'Yes')
 
   for (const surface of ['terminal', 'desktop'] as const) {
     ran.length = 0
@@ -39,6 +46,20 @@ test('Clear runs /clear', async ($, on) => {
     expect(ran).toEqual(['clear'])
     await ui.unmount()
   }
+})
+
+test('Clear keeps the conversation on No', async ($, on) => {
+  const ran: string[] = []
+  on('command.run', ($, e) => {
+    ran.push(e.command)
+    return {}
+  })
+  answerClear(on, 'No')
+
+  const ui = await $.ui.mount({ plugin: 'manager', surface: 'terminal', component: 'AbovePrompt', props: props(false) })
+  await ui.press({ key: 'clear' })
+  expect(ran).toEqual([])
+  await ui.unmount()
 })
 
 test('Commit & push asks Claude to commit and push', async ($, on) => {

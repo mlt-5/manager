@@ -24,7 +24,7 @@ The bar turns to the warning color once the context window is 80% full.
 | Button | What it does |
 | --- | --- |
 | **Compact** | Runs `/compact`, then refreshes the meter. |
-| **Clear** | Runs `/clear` to start a fresh conversation, then refreshes the meter. |
+| **Clear** | Asks "Are you sure you want to clear the conversation?" with **Yes** and **No**. On **Yes** it runs `/clear` to start a fresh conversation, then refreshes the meter. |
 | **Commit & push** | Asks Claude to commit every change in the repository with a descriptive message and push the current branch. Claude says so instead if there's no repository, nothing to commit, or no upstream. |
 | **Clear + handoff** | Runs the `mattpocock-skills:handoff` skill to write a handoff document. When that turn ends, it runs `/clear` and starts a new turn that reads the handoff file and picks up where it left off. While this runs, the band shows "Writing handoff…" and then "Clearing and resuming from handoff…". |
 

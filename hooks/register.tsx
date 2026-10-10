@@ -5,6 +5,8 @@ import type { ContextFill, Phase } from '../types'
 
 const HANDOFF_SKILL = 'mattpocock-skills:handoff'
 
+const CLEAR_QUESTION = 'Are you sure you want to clear the conversation?'
+
 const COMMIT_PROMPT =
   'I pressed the "Commit & push" button: commit all current changes in this repository with a clear commit message describing them, then push the current branch to its remote. If this is not a git repository, or there is nothing to commit, or the branch has no upstream, say so instead of guessing.'
 
@@ -150,7 +152,12 @@ export const register: Register = on => {
               key="clear"
               label="Clear"
               dimColor={isWorking}
-              onPress={() => run('clear')}
+              onPress={async () => {
+                if (isWorking) return
+                // Anything but "Yes" (No, a typed answer, or closing the dialog) keeps the conversation.
+                const answer = await $.ui.ask(CLEAR_QUESTION, { options: ['Yes', 'No'], header: 'Clear' }).catch(() => undefined)
+                if (answer === 'Yes') await run('clear')
+              }}
             />
             <Button
               key="commit"
