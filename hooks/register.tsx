@@ -160,6 +160,12 @@ export const register: Register = on => {
               }}
             />
             <Button
+              key="rewind"
+              label="Rewind"
+              dimColor={isWorking}
+              onPress={() => run('rewind')}
+            />
+            <Button
               key="commit"
               label="Commit & push"
               dimColor={isWorking}

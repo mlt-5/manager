@@ -62,6 +62,19 @@ test('Clear keeps the conversation on No', async ($, on) => {
   await ui.unmount()
 })
 
+test('Rewind opens /rewind', async ($, on) => {
+  const ran: string[] = []
+  on('command.run', ($, e) => {
+    ran.push(e.command)
+    return {}
+  })
+
+  const ui = await $.ui.mount({ plugin: 'manager', surface: 'desktop', component: 'AbovePrompt', props: props(false) })
+  await ui.press({ key: 'rewind' })
+  expect(ran).toEqual(['rewind'])
+  await ui.unmount()
+})
+
 test('Commit & push asks Claude to commit and push', async ($, on) => {
   const prompts: string[] = []
   on('prompt.submit', ($, e) => {
@@ -104,6 +117,7 @@ test('buttons do nothing while a turn runs', async ($, on) => {
   const ui = await $.ui.mount({ plugin: 'manager', surface: 'terminal', component: 'AbovePrompt', props: props(true) })
   await ui.press({ key: 'compact' })
   await ui.press({ key: 'clear' })
+  await ui.press({ key: 'rewind' })
   await ui.press({ key: 'commit' })
   await ui.press({ key: 'handoff' })
   expect(ran).toEqual([])
