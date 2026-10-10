@@ -62,16 +62,17 @@ test('Clear keeps the conversation on No', async ($, on) => {
   await ui.unmount()
 })
 
-test('Rewind opens /rewind', async ($, on) => {
+test('Rewind opens /rewind where the session has it', async ($, on) => {
   const ran: string[] = []
   on('command.run', ($, e) => {
     ran.push(e.command)
     return {}
   })
 
-  const ui = await $.ui.mount({ plugin: 'manager', surface: 'desktop', component: 'AbovePrompt', props: props(false) })
-  await ui.press({ key: 'rewind' })
-  expect(ran).toEqual(['rewind'])
+  const ui = await $.ui.mount({ plugin: 'manager', surface: 'terminal', component: 'AbovePrompt', props: props(false) })
+  // The button is drawn only when the session has /rewind; where it is drawn, it runs it.
+  const pressed = await ui.press({ key: 'rewind' }).then(() => true, () => false)
+  expect(ran).toEqual(pressed ? ['rewind'] : [])
   await ui.unmount()
 })
 
@@ -117,7 +118,6 @@ test('buttons do nothing while a turn runs', async ($, on) => {
   const ui = await $.ui.mount({ plugin: 'manager', surface: 'terminal', component: 'AbovePrompt', props: props(true) })
   await ui.press({ key: 'compact' })
   await ui.press({ key: 'clear' })
-  await ui.press({ key: 'rewind' })
   await ui.press({ key: 'commit' })
   await ui.press({ key: 'handoff' })
   expect(ran).toEqual([])

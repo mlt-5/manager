@@ -117,6 +117,8 @@ export const register: Register = on => {
       await refreshFill($).catch(() => {})
     }
 
+    // /rewind exists in the terminal but not in every surface (the desktop Code tab has none), so the button shows only where it can run.
+    const canRewind = (await $.command.list().catch(() => [])).some(c => c.name === 'rewind')
     const fill = await read($, contextFill)
     const percent = fill?.percent ?? 0
     const chars = barChars(e.surface)
@@ -159,12 +161,14 @@ export const register: Register = on => {
                 if (answer === 'Yes') await run('clear')
               }}
             />
-            <Button
-              key="rewind"
-              label="Rewind"
-              dimColor={isWorking}
-              onPress={() => run('rewind')}
-            />
+            {canRewind && (
+              <Button
+                key="rewind"
+                label="Rewind"
+                dimColor={isWorking}
+                onPress={() => run('rewind')}
+              />
+            )}
             <Button
               key="commit"
               label="Commit & push"
