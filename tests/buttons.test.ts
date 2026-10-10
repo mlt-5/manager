@@ -9,7 +9,7 @@ const props = (isWorking: boolean) => ({
   view: {},
 })
 
-test('Compact conversation runs /compact', async ($, on) => {
+test('Compact runs /compact', async ($, on) => {
   const ran: string[] = []
   on('command.run', ($, e) => {
     ran.push(e.command)
@@ -21,6 +21,22 @@ test('Compact conversation runs /compact', async ($, on) => {
     const ui = await $.ui.mount({ plugin: 'manager', surface, component: 'AbovePrompt', props: props(false) })
     await ui.press({ key: 'compact' })
     expect(ran).toEqual(['compact'])
+    await ui.unmount()
+  }
+})
+
+test('Clear runs /clear', async ($, on) => {
+  const ran: string[] = []
+  on('command.run', ($, e) => {
+    ran.push(e.command)
+    return {}
+  })
+
+  for (const surface of ['terminal', 'desktop'] as const) {
+    ran.length = 0
+    const ui = await $.ui.mount({ plugin: 'manager', surface, component: 'AbovePrompt', props: props(false) })
+    await ui.press({ key: 'clear' })
+    expect(ran).toEqual(['clear'])
     await ui.unmount()
   }
 })
@@ -66,6 +82,7 @@ test('buttons do nothing while a turn runs', async ($, on) => {
 
   const ui = await $.ui.mount({ plugin: 'manager', surface: 'terminal', component: 'AbovePrompt', props: props(true) })
   await ui.press({ key: 'compact' })
+  await ui.press({ key: 'clear' })
   await ui.press({ key: 'commit' })
   await ui.press({ key: 'handoff' })
   expect(ran).toEqual([])

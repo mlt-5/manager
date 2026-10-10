@@ -1,6 +1,6 @@
 # manager
 
-A Claude Code mod that adds a band above the prompt with a live context-window meter and three one-click buttons for keeping a long session under control.
+A Claude Code mod that adds a band above the prompt with a live context-window meter and four one-click buttons for keeping a long session under control.
 
 ## Preview
 
@@ -14,7 +14,7 @@ Terminal:
 Context window                     62.5k / 1M (6%)
 ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-[ Compact conversation ] [ Commit & push ] [ Clear + handoff ]
+[ Compact ] [ Clear ] [ Commit & push ] [ Clear + handoff ]
 ```
 
 The bar turns to the warning color once the context window is 80% full.
@@ -23,7 +23,8 @@ The bar turns to the warning color once the context window is 80% full.
 
 | Button | What it does |
 | --- | --- |
-| **Compact conversation** | Runs `/compact`, then refreshes the meter. |
+| **Compact** | Runs `/compact`, then refreshes the meter. |
+| **Clear** | Runs `/clear` to start a fresh conversation, then refreshes the meter. |
 | **Commit & push** | Asks Claude to commit every change in the repository with a descriptive message and push the current branch. Claude says so instead if there's no repository, nothing to commit, or no upstream. |
 | **Clear + handoff** | Runs the `mattpocock-skills:handoff` skill to write a handoff document. When that turn ends, it runs `/clear` and starts a new turn that reads the handoff file and picks up where it left off. While this runs, the band shows "Writing handoff…" and then "Clearing and resuming from handoff…". |
 

@@ -11,11 +11,13 @@
   <rect x="28" y="50" width="290" height="16" fill="url(#dots)"/>
   <rect x="28" y="50" width="18" height="16" fill="#7aa5ea"/>
   <g font-size="14" fill="#e8e8e8">
-    <rect x="28" y="88" width="172" height="30" rx="6" fill="#363636"/>
-    <text x="114" y="108" text-anchor="middle">Compact conversation</text>
-    <rect x="208" y="88" width="120" height="30" rx="6" fill="#363636"/>
-    <text x="268" y="108" text-anchor="middle">Commit &amp; push</text>
-    <rect x="336" y="88" width="128" height="30" rx="6" fill="#363636"/>
-    <text x="400" y="108" text-anchor="middle">Clear + handoff</text>
+    <rect x="28" y="88" width="88" height="30" rx="6" fill="#363636"/>
+    <text x="72" y="108" text-anchor="middle">Compact</text>
+    <rect x="124" y="88" width="68" height="30" rx="6" fill="#363636"/>
+    <text x="158" y="108" text-anchor="middle">Clear</text>
+    <rect x="200" y="88" width="120" height="30" rx="6" fill="#363636"/>
+    <text x="260" y="108" text-anchor="middle">Commit &amp; push</text>
+    <rect x="328" y="88" width="128" height="30" rx="6" fill="#363636"/>
+    <text x="392" y="108" text-anchor="middle">Clear + handoff</text>
   </g>
 </svg>

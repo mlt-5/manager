@@ -142,9 +142,15 @@ export const register: Register = on => {
           <Box flexDirection="row" gap={1} marginTop={1}>
             <Button
               key="compact"
-              label="Compact conversation"
+              label="Compact"
               dimColor={isWorking}
               onPress={() => run('compact')}
+            />
+            <Button
+              key="clear"
+              label="Clear"
+              dimColor={isWorking}
+              onPress={() => run('clear')}
             />
             <Button
               key="commit"
